@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="layout_margin_content">5dp</dimen>
+    <dimen name="layout_width_iv_content">150dp</dimen>
+    <dimen name="layout_height_iv_content">100dp</dimen>
+    <dimen name="text_size_content">16sp</dimen>
+    <dimen name="layout_width_tv_content">150dp</dimen>
+    <dimen name="margin_top_content">8dp</dimen>
+</resources>

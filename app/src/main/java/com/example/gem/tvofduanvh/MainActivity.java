@@ -13,38 +13,42 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_fragment);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main_fragment);
 
-        setupMenu();
-    }
+    setupMenu();
+  }
 
-    private void setupMenu() {
-        LeftMenuFragment leftMenuFragment = new LeftMenuFragment();
-        IconMenuFragment iconMenuFragment = new IconMenuFragment();
+  private void setupMenu() {
+    LeftMenuFragment leftMenuFragment = new LeftMenuFragment();
+    IconMenuFragment iconMenuFragment = new IconMenuFragment();
+    ContentFragment contentFragment = new ContentFragment();
 
-        leftMenuFragment.setListener(new LeftMenuFragment.OnMenuItemClickListener() {
-            @Override
-            public void onMenuItemClicked(long id) {
-                Toast.makeText(getApplicationContext(), "id: " + "LeftMenuFragmentID: ", Toast.LENGTH_SHORT).show();
-            }
-        });
+    leftMenuFragment.setListener(new LeftMenuFragment.OnMenuItemClickListener() {
+      @Override
+      public void onMenuItemClicked(long id) {
+        Toast.makeText(getApplicationContext(), "id: " + "LeftMenuFragmentID: ", Toast.LENGTH_SHORT).show();
+      }
+    });
 
-        iconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
-            @Override
-            public void onMenuItemClicked(long id) {
-                Toast.makeText(getApplicationContext(), "IconMenuFragmeniID: " + id, Toast.LENGTH_SHORT).show();
-            }
-        });
+    iconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
+      @Override
+      public void onMenuItemClicked(long id) {
+        Toast.makeText(getApplicationContext(), "IconMenuFragmeniID: " + id, Toast.LENGTH_SHORT).show();
+      }
+    });
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_menu, leftMenuFragment)
-                .commit();
+    getSupportFragmentManager().beginTransaction()
+        .add(R.id.fl_menu, leftMenuFragment)
+        .commit();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_icon_menu, iconMenuFragment)
-                .commit();
-    }
+    getSupportFragmentManager().beginTransaction()
+        .add(R.id.fl_icon_menu, iconMenuFragment)
+        .commit();
+
+    getSupportFragmentManager().beginTransaction().add(R.id.fl_content, contentFragment)
+        .commit();
+  }
 }
