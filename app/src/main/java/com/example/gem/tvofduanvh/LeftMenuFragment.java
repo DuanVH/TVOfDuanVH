@@ -3,7 +3,6 @@ package com.example.gem.tvofduanvh;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.HeadersSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -30,8 +29,8 @@ public class LeftMenuFragment extends HeadersSupportFragment {
 
 //  private OnMenuItem
 
-  private List<MenuItem> mMenuItems;
-  private List<MenuDTO> mMenuDTOs;
+  private List<LeftMenuItem> mLeftMenuItems;
+  private List<LeftMenuDTO> mLeftMenuDTOS;
   private int mCurrentPosition;
 
   @Override
@@ -39,7 +38,7 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     super.onCreate(savedInstanceState);
 
     if (getArguments() != null && getArguments().containsKey(KEY_MENU)) {
-      mMenuDTOs = getArguments().getParcelableArrayList(KEY_MENU);
+      mLeftMenuDTOS = getArguments().getParcelableArrayList(KEY_MENU);
     }
 
     setPresenterSelector(new PresenterSelector() {
@@ -66,10 +65,10 @@ public class LeftMenuFragment extends HeadersSupportFragment {
         if (row != null) {
           int position = (int) row.getId();
           if (mCurrentPosition != position && position != -1) {
-            mMenuItems.get(mCurrentPosition).mIsChosen = false;
+            mLeftMenuItems.get(mCurrentPosition).mIsChosen = false;
             mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
             mCurrentPosition = position;
-            mMenuItems.get(mCurrentPosition).mIsChosen = true;
+            mLeftMenuItems.get(mCurrentPosition).mIsChosen = true;
             mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
 
 
@@ -86,26 +85,40 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     });
 
     getVerticalGridView().setPadding(
-        getActivity().getResources().getDimensionPixelSize(R.dimen.lb_action_1_line_height), 0, 0, 0);
+        0, getActivity().getResources().getDimensionPixelSize(R.dimen.lb_action_1_line_height), 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
-    customSetBackground();
+//    customSetBackground();
   }
 
   private void setupHeaderAdapter() {
     mRowsAdapter = new ArrayObjectAdapter();
-    mMenuItems = new ArrayList<>();
+    mLeftMenuItems = new ArrayList<>();
 
 //    for (int i = 0; i < mMenuDtos.size(); i++) {  // ...???
-//      MenuItem menuItem = new MenuItem(i, mMenuDtos.get(i).getName());
-//      mMenuItems.add(menuItem);
+//      LeftMenuItem menuItem = new LeftMenuItem(i, mMenuDtos.get(i).getName());
+//      mLeftMenuItems.add(menuItem);
 //      mRowsAdapter.add(new ListRow(menuItem, new ArrayObjectAdapter()));
 //    }
 
-    for (int i = 0; i < 5; i++) {
-      MenuItem menuItem = new MenuItem(i, "DuanVH");
-      mMenuItems.add(menuItem);
-      mRowsAdapter.add(new ListRow(menuItem, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
-    }
+    LeftMenuItem home = new LeftMenuItem(0, "Trang chủ");
+    mLeftMenuItems.add(home);
+    mRowsAdapter.add(new ListRow(home, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
+
+    LeftMenuItem suggest = new LeftMenuItem(1, "Đề xuất");
+    mLeftMenuItems.add(suggest);
+    mRowsAdapter.add(new ListRow(suggest, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
+
+    LeftMenuItem hotTrend = new LeftMenuItem(2, "Thịnh hành");
+    mLeftMenuItems.add(hotTrend);
+    mRowsAdapter.add(new ListRow(hotTrend, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
+
+    LeftMenuItem music = new LeftMenuItem(3, "Âm nhạc");
+    mLeftMenuItems.add(music);
+    mRowsAdapter.add(new ListRow(music, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
+
+    LeftMenuItem entertainment = new LeftMenuItem(4, "Giải trí");
+    mLeftMenuItems.add(entertainment);
+    mRowsAdapter.add(new ListRow(entertainment, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
     setAdapter(mRowsAdapter);
   }

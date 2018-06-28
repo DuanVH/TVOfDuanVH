@@ -3,12 +3,12 @@
 
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <stroke android:width="2dp" android:color="@color/colorWhite" />
+            <solid android:color="#3F51B5" />
         </shape>
     </item>
 
-    <item android:state_focused="true">
-        <shape android:shape="rectangle"></shape>
-    </item>
+    <!--<item android:state_focused="true">-->
+    <!--<shape android:shape="rectangle"></shape>-->
+    <!--</item>-->
 
 </selector>

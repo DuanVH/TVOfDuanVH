@@ -41,9 +41,9 @@ public class MainFragment extends BrowseFragment {
   private void loadRowsNew() {
     mAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
-    MenuItem menuItem = new MenuItem(0, "DuanVH");
+    LeftMenuItem leftMenuItem = new LeftMenuItem(0, "DuanVH");
 
-    mAdapter.add(new ListRow(menuItem, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()
+    mAdapter.add(new ListRow(leftMenuItem, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()
     ))));
     setAdapter(mAdapter);
   }

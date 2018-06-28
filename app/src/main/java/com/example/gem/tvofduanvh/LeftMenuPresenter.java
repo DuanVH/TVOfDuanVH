@@ -32,16 +32,16 @@ public class LeftMenuPresenter extends RowHeaderPresenter {
   @Override
   public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
     super.onBindViewHolder(viewHolder, item);
-    final MenuItem menuItem = (MenuItem) ((ListRow) item).getHeaderItem();
+    final LeftMenuItem leftMenuItem = (LeftMenuItem) ((ListRow) item).getHeaderItem();
 
     final MenuItemHolder menuItemHolder = (MenuItemHolder) viewHolder;
-    menuItemHolder.mTitleTv.setText(menuItem.getName());
+    menuItemHolder.mTitleTv.setText(leftMenuItem.getName());
 
-    menuItemHolder.view.setTag(menuItem);
+    menuItemHolder.view.setTag(leftMenuItem);
     menuItemHolder.view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View view, boolean b) {
-        MenuItem data = (MenuItem) view.getTag();
+        LeftMenuItem data = (LeftMenuItem) view.getTag();
         if (data.mIsChosen) {
           menuItemHolder.mTitleTv.setSelected(true);
         } else
@@ -59,7 +59,7 @@ public class LeftMenuPresenter extends RowHeaderPresenter {
     public MenuItemHolder(View view) {
       super(view);
       ButterKnife.bind(this, view);
-      mTitleTv.setPivotX(0);
+//      mTitleTv.setPivotX(0);
     }
 
     public void zoom(boolean zoomed) {

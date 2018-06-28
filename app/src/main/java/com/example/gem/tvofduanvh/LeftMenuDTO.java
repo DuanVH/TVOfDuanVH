@@ -3,30 +3,27 @@ package com.example.gem.tvofduanvh;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by gem on 6/26/18.
  */
 
-public class MenuDTO implements Parcelable {
+public class LeftMenuDTO implements Parcelable {
 
   private int id;
   private String name;
 
-  public static final Parcelable.Creator<MenuDTO> CREATOR = new Parcelable.Creator<MenuDTO>() {
-    public MenuDTO createFromParcel(Parcel in) {
-      return new MenuDTO(in);
+  public static final Parcelable.Creator<LeftMenuDTO> CREATOR = new Parcelable.Creator<LeftMenuDTO>() {
+    public LeftMenuDTO createFromParcel(Parcel in) {
+      return new LeftMenuDTO(in);
     }
 
     @Override
-    public MenuDTO[] newArray(int size) {
-      return new MenuDTO[size];
+    public LeftMenuDTO[] newArray(int size) {
+      return new LeftMenuDTO[size];
     }
   };
 
-  private MenuDTO(Parcel in) {
+  private LeftMenuDTO(Parcel in) {
     id = in.readInt();
     name = in.readString();
   }
