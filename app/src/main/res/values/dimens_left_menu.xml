@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_layput_left_menu">200dp</dimen>
+    <dimen name="height_layout_left_menu">60dp</dimen>
+    <dimen name="padding_left_left_menu">20dp</dimen>
+    <dimen name="text_size_left_menu">20sp</dimen>
+</resources>
