@@ -1,7 +1,8 @@
 package com.example.gem.tvofduanvh;
 
 import android.content.Context;
-import android.media.tv.TvTrackInfo;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,25 @@ public class VideoPresenter extends AbstractPresenter {
 
   @Override
   public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+
     final ProgramItemHolder holder = (ProgramItemHolder) viewHolder;
-    ContentRight contentRight = (ContentRight)item;
-    Picasso.with(getContext()).load(contentRight.getImage()).fit().into(holder.ivContent);
+
+    ContentRightItem contentRightItem = (ContentRightItem) item;
+
+    Picasso.with(getContext()).load(contentRightItem.getImageUrl()).fit().into(holder.ivContent);
 //    holder.ivContent.setImageResource(R.mipmap.ic_launcher);
-    holder.tvTitle.setText(contentRight.getTitle());
+    holder.tvTitle.setText(contentRightItem.getTitle());
+
+    String urlVideo = contentRightItem.getVideoUrl(); // your URL here
+//    Uri videoUri = Uri.parse(urlVideo);
+//    holder.videoView.setVideoURI(videoUri);
+//    holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//      @Override
+//      public void onPrepared(MediaPlayer mp) {
+//        mp.setLooping(true);
+//        holder.videoView.start();
+//      }
+//    });
   }
 
   @Override
@@ -45,8 +60,10 @@ public class VideoPresenter extends AbstractPresenter {
   }
 
   class ProgramItemHolder extends ViewHolder {
+
     @BindView(R.id.iv_icon_content)
     ImageView ivContent;
+
     @BindView(R.id.tv_title_content)
     TextView tvTitle;
 

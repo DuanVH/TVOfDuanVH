@@ -7,8 +7,8 @@
         </shape>
     </item>
 
-    <!--<item android:state_focused="true">-->
-    <!--<shape android:shape="rectangle"></shape>-->
-    <!--</item>-->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle"></shape>
+    </item>
 
 </selector>

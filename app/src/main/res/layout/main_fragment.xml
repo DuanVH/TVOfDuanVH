@@ -26,4 +26,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fl_menu" />
 
+    <FrameLayout
+        android:id="@+id/fl_video_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fl_icon_menu" />
+
 </android.support.constraint.ConstraintLayout>
