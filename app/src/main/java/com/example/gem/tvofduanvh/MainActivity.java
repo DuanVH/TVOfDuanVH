@@ -54,9 +54,9 @@ public class MainActivity extends FragmentActivity {
     final IconMenuFragment iconMenuFragment = new IconMenuFragment();
     final ContentFragment contentFragment = new ContentFragment();
 
-//    getSupportFragmentManager().beginTransaction()
-//        .add(R.id.fl_menu, leftMenuFragment, LEFT_MENU)
-//        .commit();
+    getSupportFragmentManager().beginTransaction()
+        .add(R.id.fl_menu, leftMenuFragment, LEFT_MENU)
+        .commit();
 
     getSupportFragmentManager().beginTransaction()
         .add(R.id.fl_icon_menu, iconMenuFragment, ICON_MENU)
@@ -64,6 +64,9 @@ public class MainActivity extends FragmentActivity {
 
     getSupportFragmentManager().beginTransaction()
         .add(R.id.fl_content, contentFragment, CONTENT)
+        .setCustomAnimations(R.anim.left_to_right, R.anim.right_to_left)
+        .show(leftMenuFragment)
+        .addToBackStack(null)
         .commit();
 
     leftMenuFragment.setListener(new LeftMenuFragment.OnMenuItemClickListener() {
@@ -74,38 +77,21 @@ public class MainActivity extends FragmentActivity {
       }
     });
 
-//    iconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
-//
-//      @Override
-//      public void onMenuItemClicked(long id) {
-//
-//        if (leftMenuFragment.isAdded()) {
-//          Toast.makeText(getApplicationContext(), "Fragment added ", Toast.LENGTH_SHORT).show();
-//        } else {
-//          Log.e(TAG, "Add Left Menu" );
-//          mLeftMenuFl.setVisibility(View.VISIBLE);
-//          getSupportFragmentManager().beginTransaction()
-//              .add(R.id.fl_menu, leftMenuFragment, LEFT_MENU)
-//              .commit();
-//        }
-//      }
-//    });
+    iconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
 
-//    contentFragment.setListener(new ContentFragment.OnContentListener() {
-//
-//      @Override
-//      public void onContentListener(long id) {
-//
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        LeftMenuFragment fragment = (LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(LEFT_MENU);
-//        if (fragment != null) {
-//          Log.e(TAG, "Hide Left Menu" );
-//          fragmentTransaction.remove(fragment);
-//          fragmentTransaction.commit();
-//          mLeftMenuFl.setVisibility(View.GONE);
-//        }
-//      }
-//    });
+      @Override
+      public void onMenuItemClicked(long id) {
+
+      }
+    });
+
+    contentFragment.setListener(new ContentFragment.OnContentListener() {
+
+      @Override
+      public void onContentListener(long id) {
+
+      }
+    });
 
     parentContainer.setOnChildFocusListener(new OnChildFocusListener() {
       @Override
@@ -117,12 +103,12 @@ public class MainActivity extends FragmentActivity {
       public void onRequestChildFocus(View child, View focused) {
         if (child.getId() == R.id.fl_content) {
           FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            LeftMenuFragment fragment = (LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(LEFT_MENU);
-            if (fragment != null) {
-              Log.e(TAG, "Hide Left Menu");
-              fragmentTransaction.remove(fragment);
-              fragmentTransaction.commit();
-              mLeftMenuFl.setVisibility(View.GONE);
+          LeftMenuFragment fragment = (LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(LEFT_MENU);
+          if (fragment != null) {
+            Log.e(TAG, "Hide Left Menu");
+            fragmentTransaction.remove(fragment);
+            fragmentTransaction.commit();
+            mLeftMenuFl.setVisibility(View.GONE);
           }
         } else if (child.getId() == R.id.fl_icon_menu) {
           if (leftMenuFragment.isAdded()) {
@@ -132,6 +118,9 @@ public class MainActivity extends FragmentActivity {
             mLeftMenuFl.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction()
                 .add(R.id.fl_menu, leftMenuFragment, LEFT_MENU)
+                .setCustomAnimations(R.anim.left_to_right, R.anim.right_to_left)
+                .show(leftMenuFragment)
+                .addToBackStack(null)
                 .commit();
           }
         }

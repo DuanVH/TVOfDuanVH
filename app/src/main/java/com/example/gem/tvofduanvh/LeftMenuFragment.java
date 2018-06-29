@@ -12,6 +12,10 @@ import android.support.v17.leanback.widget.PresenterSelector;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -38,6 +42,10 @@ public class LeftMenuFragment extends HeadersSupportFragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+//    Animation translate = AnimationUtils.loadAnimation(getActivity(), R.anim.left_to_right);
+//    getView().startAnimation(translate);
+
 
     if (getArguments() != null && getArguments().containsKey(KEY_MENU)) {
       mLeftMenuDTOS = getArguments().getParcelableArrayList(KEY_MENU);
