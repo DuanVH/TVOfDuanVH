@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.gem.tvofduanvh.CustomConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_fragment"
+    android:id="@+id/parentContainer"
     android:name="com.example.gem.tvofduanvh.MainFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/fl_icon_menu"
         android:layout_width="@dimen/width_frame_layout_icon_menu"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/fl_menu"
         android:layout_width="@dimen/width_frame_layout_left_menu"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/fl_icon_menu" />
+        app:layout_constraintLeft_toRightOf="@+id/fl_icon_menu"
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/fl_content"
+        app:layout_constraintLeft_toRightOf="@+id/fl_menu"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fl_menu" />
+        android:layout_height="match_parent" />
 
-    <FrameLayout
-        android:id="@+id/fl_video_view"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fl_icon_menu" />
-
-</android.support.constraint.ConstraintLayout>
+</com.example.gem.tvofduanvh.CustomConstraintLayout>

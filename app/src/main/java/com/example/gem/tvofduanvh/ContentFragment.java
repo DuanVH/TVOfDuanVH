@@ -5,6 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
+import android.support.v17.leanback.widget.OnItemViewClickedListener;
+import android.support.v17.leanback.widget.OnItemViewSelectedListener;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.Row;
+import android.support.v17.leanback.widget.RowPresenter;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,12 +22,47 @@ import java.util.List;
 
 public class ContentFragment extends BaseRowsFragment {
 
+  private static final String TAG = ContentFragment.class.getSimpleName();
   private List<ContentRightItem> mContents;
+
+  private OnContentListener mListener;
+
+  public void setListener(OnContentListener mListener) {
+    this.mListener = mListener;
+  }
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     showData();
+    setEventListener();
+  }
+
+  private void setEventListener() {
+
+    setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
+      @Override
+      public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+        if (mListener != null) {
+          mListener.onContentListener((int) row.getId());
+          Log.e(TAG, "Content Selected: ");
+        }
+      }
+    });
+
+    setOnItemViewClickedListener(new OnItemViewClickedListener() {
+      @Override
+      public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+        if (mListener != null) {
+          mListener.onContentListener((int) row.getId());
+          Log.e(TAG, "Content Clicked: ");
+        }
+      }
+    });
+
+    getVerticalGridView().setPadding(0, 0, 0, 0);
+    getVerticalGridView().setVerticalSpacing(0);
+
   }
 
   private void showData() {
@@ -67,6 +108,10 @@ public class ContentFragment extends BaseRowsFragment {
     }
   }
 
+  public interface OnContentListener {
+    void onContentListener(long id);
+  }
+
   @Override
   protected int zoomFactor() {
     return 1;
@@ -86,4 +131,5 @@ public class ContentFragment extends BaseRowsFragment {
   protected float horizontalWindowAlignmentOffsetPercent() {
     return 50;
   }
+
 }

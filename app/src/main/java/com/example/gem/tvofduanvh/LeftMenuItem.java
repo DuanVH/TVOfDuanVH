@@ -13,7 +13,7 @@ public class LeftMenuItem extends HeaderItem {
 
   public LeftMenuItem(long id, String name, boolean isChosen) {
     super(id, name);
-    mIsChosen = isChosen;
+    this.mIsChosen = isChosen;
   }
 
   public LeftMenuItem(long id, String name) {
