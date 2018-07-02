@@ -19,8 +19,6 @@ import butterknife.ButterKnife;
  */
 
 public class VideoPresenter extends AbstractPresenter {
-  private int mCoverWidth;
-  private int mCoverHeight;
 
   public VideoPresenter(Context context, boolean isAlignFirstItem) {
     super(context, isAlignFirstItem);
@@ -54,6 +52,8 @@ public class VideoPresenter extends AbstractPresenter {
 //      }
 //    });
   }
+
+
 
   @Override
   public void onUnbindViewHolder(ViewHolder viewHolder) {

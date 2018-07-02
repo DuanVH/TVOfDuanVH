@@ -32,6 +32,7 @@ public class LeftMenuPresenter extends RowHeaderPresenter {
   @Override
   public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
     super.onBindViewHolder(viewHolder, item);
+
     final LeftMenuItem leftMenuItem = (LeftMenuItem) ((ListRow) item).getHeaderItem();
 
     final MenuItemHolder menuItemHolder = (MenuItemHolder) viewHolder;
@@ -41,11 +42,11 @@ public class LeftMenuPresenter extends RowHeaderPresenter {
     menuItemHolder.view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View view, boolean b) {
-        LeftMenuItem data = (LeftMenuItem) view.getTag();
-        if (data.mIsChosen) {
-          menuItemHolder.mTitleTv.setSelected(true);
-        } else
-          menuItemHolder.mTitleTv.setSelected(b);
+//        LeftMenuItem data = (LeftMenuItem) view.getTag();
+//        if (data.mIsChosen) {
+//          menuItemHolder.mTitleTv.setSelected(true);
+//        } else
+//          menuItemHolder.mTitleTv.setSelected(b);
       }
     });
 

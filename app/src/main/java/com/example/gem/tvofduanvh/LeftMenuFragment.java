@@ -14,12 +14,6 @@ import android.support.v17.leanback.widget.RowHeaderPresenter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Transformation;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -73,7 +67,7 @@ public class LeftMenuFragment extends HeadersSupportFragment {
       public void onHeaderClicked(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
 
         if (mListener != null) {
-          mListener.onMenuItemClicked((int) row.getId());
+          mListener.onLeftMenuItemClicked((int) row.getId());
           Log.e(TAG, "left menu clicked");
         }
       }
@@ -82,21 +76,27 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     setOnHeaderViewSelectedListener(new OnHeaderViewSelectedListener() {
       @Override
       public void onHeaderSelected(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
-        if (row != null) {
-          int position = (int) row.getId();
-          if (mCurrentPosition != position && position != -1) {
-            mLeftMenuItems.get(mCurrentPosition).mIsChosen = false;
-            mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
-            mCurrentPosition = position;
-            mLeftMenuItems.get(mCurrentPosition).mIsChosen = true;
-            mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
 
-            if (mListener != null) {
-              mListener.onMenuItemClicked(mCurrentPosition);
-              Log.e(TAG, "left menu selected");
-            }
-          }
+        if (mListener != null) {
+          mListener.onLeftMenuItemClicked(mCurrentPosition);
+          Log.e(TAG, "left menu selected");
         }
+
+//        if (row != null) {
+//          int position = (int) row.getId();
+//          if (mCurrentPosition != position && position != -1) {
+//            mLeftMenuItems.get(mCurrentPosition).mIsChosen = false;
+//            mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
+//            mCurrentPosition = position;
+//            mLeftMenuItems.get(mCurrentPosition).mIsChosen = true;
+//            mRowsAdapter.notifyArrayItemRangeChanged(mCurrentPosition, 1);
+//
+//            if (mListener != null) {
+//              mListener.onLeftMenuItemClicked(mCurrentPosition);
+//              Log.e(TAG, "left menu selected");
+//            }
+//          }
+//        }
       }
     });
 
@@ -123,27 +123,34 @@ public class LeftMenuFragment extends HeadersSupportFragment {
 //      mRowsAdapter.add(new ListRow(menuItem, new ArrayObjectAdapter()));
 //    }
 
-    LeftMenuItem home = new LeftMenuItem(0, "Trang chủ", false);
+    LeftMenuItem home = new LeftMenuItem(0, "Trang chủ");
     mLeftMenuItems.add(home);
     mRowsAdapter.add(new ListRow(home, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem suggest = new LeftMenuItem(1, "Đề xuất", false);
+    LeftMenuItem suggest = new LeftMenuItem(1, "Đề xuất");
     mLeftMenuItems.add(suggest);
     mRowsAdapter.add(new ListRow(suggest, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem hotTrend = new LeftMenuItem(2, "Thịnh hành", false);
+    LeftMenuItem hotTrend = new LeftMenuItem(2, "Thịnh hành");
     mLeftMenuItems.add(hotTrend);
     mRowsAdapter.add(new ListRow(hotTrend, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem music = new LeftMenuItem(3, "Âm nhạc", false);
+    LeftMenuItem music = new LeftMenuItem(3, "Âm nhạc");
     mLeftMenuItems.add(music);
     mRowsAdapter.add(new ListRow(music, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem entertainment = new LeftMenuItem(4, "Giải trí", false);
+    LeftMenuItem entertainment = new LeftMenuItem(4, "Giải trí");
     mLeftMenuItems.add(entertainment);
     mRowsAdapter.add(new ListRow(entertainment, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
     setAdapter(mRowsAdapter);
+
+    getVerticalGridView().post(new Runnable() {
+      @Override
+      public void run() {
+        ((MainActivity)getActivity()).requestFocusIcon();
+      }
+    });
   }
 
   private void customSetBackground(int color) {
@@ -159,6 +166,6 @@ public class LeftMenuFragment extends HeadersSupportFragment {
 
 
   public interface OnMenuItemClickListener {
-    void onMenuItemClicked(long id);
+    void onLeftMenuItemClicked(long id);
   }
 }

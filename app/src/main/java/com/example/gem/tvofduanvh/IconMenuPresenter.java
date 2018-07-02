@@ -33,7 +33,6 @@ public class IconMenuPresenter extends RowHeaderPresenter {
 
     final IconMenuItem iconMenuItem = (IconMenuItem) ((ListRow) item).getHeaderItem();
 
-
     final IconMenuViewHolder iconMenuViewHolder = (IconMenuViewHolder) viewHolder;
     iconMenuViewHolder.mIv.setImageDrawable(mContext.getResources().getDrawable(iconMenuItem.getImage()));
 

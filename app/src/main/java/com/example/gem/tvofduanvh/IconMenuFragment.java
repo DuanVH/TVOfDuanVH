@@ -11,7 +11,9 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
       @Override
       public void onHeaderClicked(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
         if (mListener != null) {
-          mListener.onMenuItemClicked((int) row.getId());
+          mListener.onIconMenuItemClicked((int) row.getId());
           Log.e(TAG, "icon menu clicked");
         }
       }
@@ -67,7 +69,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
       @Override
       public void onHeaderSelected(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
         if (mListener != null) {
-          mListener.onMenuItemClicked((int) row.getId());
+          mListener.onIconMenuItemClicked((int) row.getId());
           Log.e(TAG, "icon menu selected");
         }
       }
@@ -76,6 +78,13 @@ public class IconMenuFragment extends HeadersSupportFragment {
     getVerticalGridView().setPadding(0, 0, 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
     customSetBackground();
+  }
+
+  public View getSelectedView() {
+    RecyclerView.ViewHolder vh = getVerticalGridView().findViewHolderForAdapterPosition(getSelectedPosition());
+    if (vh != null)
+      return vh.itemView;
+    return null;
   }
 
   private void setListIconMenu() {
@@ -122,6 +131,6 @@ public class IconMenuFragment extends HeadersSupportFragment {
   }
 
   public interface OnMenuItemClickListener {
-    void onMenuItemClicked(long id);
+    void onIconMenuItemClicked(long id);
   }
 }

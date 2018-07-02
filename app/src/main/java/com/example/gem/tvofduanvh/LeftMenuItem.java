@@ -10,14 +10,14 @@ public class LeftMenuItem extends HeaderItem {
 
   public static final boolean IS_CHOSEN = false;
   public boolean mIsChosen = IS_CHOSEN;
-
+//
   public LeftMenuItem(long id, String name, boolean isChosen) {
     super(id, name);
     this.mIsChosen = isChosen;
   }
 
   public LeftMenuItem(long id, String name) {
-    this(id, name, IS_CHOSEN);
+    super(id, name);
   }
 
   public LeftMenuItem(String name) {

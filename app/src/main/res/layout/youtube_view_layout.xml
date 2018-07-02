@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<VideoView-->
-    <!--android:id="@+id/vv_play_video"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
+    <VideoView
+    android:id="@+id/vv_play_video"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtube_video_player"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<com.google.android.youtube.player.YouTubePlayerView-->
+        <!--android:id="@+id/youtube_video_player"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-    </com.google.android.youtube.player.YouTubePlayerView>
+    <!--</com.google.android.youtube.player.YouTubePlayerView>-->
 
 </LinearLayout>
