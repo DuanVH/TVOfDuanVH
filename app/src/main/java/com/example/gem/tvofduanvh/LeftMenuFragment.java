@@ -103,7 +103,7 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     getVerticalGridView().setPadding(
         0, getActivity().getResources().getDimensionPixelSize(R.dimen.lb_action_1_line_height), 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
-//    customSetBackground();
+    customSetBackground(Color.BLACK);
   }
 
   public View getSelectedView() {
@@ -146,16 +146,17 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     setAdapter(mRowsAdapter);
   }
 
-  private void customSetBackground() {
+  private void customSetBackground(int color) {
     try {
       Class clazz = HeadersSupportFragment.class;
       Method m = clazz.getDeclaredMethod("setBackgroundColor", Integer.TYPE);
       m.setAccessible(true);
-      m.invoke(this, Color.TRANSPARENT);
+      m.invoke(this, color);
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 
   public interface OnMenuItemClickListener {
     void onMenuItemClicked(long id);

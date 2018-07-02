@@ -1,8 +1,10 @@
 package com.example.gem.tvofduanvh;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v17.leanback.app.HeadersSupportFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +15,8 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +52,6 @@ public class MainActivity extends FragmentActivity {
     setContentView(R.layout.main_fragment);
     ButterKnife.bind(this);
 
-    mLeftMenuFl.setVisibility(View.VISIBLE);
     setupMenu();
   }
 
@@ -56,25 +59,6 @@ public class MainActivity extends FragmentActivity {
     final LeftMenuFragment leftMenuFragment = new LeftMenuFragment();
     final IconMenuFragment iconMenuFragment = new IconMenuFragment();
     final ContentFragment contentFragment = new ContentFragment();
-
-//    int hidingOffset = 20;
-//    final int currentMargin = 100;
-//    final int slideDestination = 200;
-////    final int currentMargin = ((ViewGroup.MarginLayoutParams) relatedFilmsContainer.getLayoutParams()).topMargin;
-////    final int slideDestination = hide ? (int) (mScreenHeight * 0.2f) + playbackControlContainer.getHeight() + hidingOffset : 0;
-//    final int slideDelta = slideDestination - currentMargin;
-//
-//    Animation toggleAnimation = new Animation() {
-//      @Override
-//      protected void applyTransformation(float interpolatedTime, Transformation t) {
-//        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mLeftMenuFl.getLayoutParams();
-//        layoutParams.topMargin = (int) (currentMargin + slideDelta * interpolatedTime);
-//        mLeftMenuFl.setLayoutParams(layoutParams);
-//      }
-//    };
-//    toggleAnimation.setDuration(300);
-//    mLeftMenuFl.startAnimation(toggleAnimation);
-
 
 
     getSupportFragmentManager().beginTransaction()
@@ -87,7 +71,6 @@ public class MainActivity extends FragmentActivity {
 
     getSupportFragmentManager().beginTransaction()
         .add(R.id.fl_content, contentFragment, CONTENT)
-//        .addToBackStack(null)
         .commit();
 
     leftMenuFragment.setListener(new LeftMenuFragment.OnMenuItemClickListener() {
@@ -153,11 +136,11 @@ public class MainActivity extends FragmentActivity {
     parentContainer.setOnFocusSearchListener(new OnFocusSearchListener() {
       @Override
       public View onFocusSearch(View focused, int direction) {
-        if(focused.getId() == R.id.itemIconMenu && direction == View.FOCUS_RIGHT){
+        if(focused.getId() == R.id.itemIconMenu && direction == View.FOCUS_RIGHT) {
           toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         }
-        return null;  // return cai rows ma da focus
+        return null;
       }
     });
     iconMenuFragment.setSelectedPosition(0);
@@ -167,6 +150,9 @@ public class MainActivity extends FragmentActivity {
     final int currentMargin = ((ViewGroup.MarginLayoutParams) mLeftMenuFl.getLayoutParams()).rightMargin;
     final int slideDestination = show ? 0:getResources().getDimensionPixelSize(R.dimen.left_menu_margin_right);
     final int slideDelta = slideDestination - currentMargin;
+    Log.e(TAG, "currentMargin: " + currentMargin);
+    Log.e(TAG, "slideDestination: " + slideDestination);
+    Log.e(TAG, "slideDelta: " + slideDelta);
 
     Animation toggleAnimation = new Animation() {
       @Override
@@ -178,6 +164,17 @@ public class MainActivity extends FragmentActivity {
     };
     toggleAnimation.setDuration(300);
     parentContainer.startAnimation(toggleAnimation);
+  }
+
+  private void customSetBackground(int color) {
+    try {
+      Class clazz = HeadersSupportFragment.class;
+      Method m = clazz.getDeclaredMethod("setBackgroundColor", Integer.TYPE);
+      m.setAccessible(true);
+      m.invoke(this, color);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }
