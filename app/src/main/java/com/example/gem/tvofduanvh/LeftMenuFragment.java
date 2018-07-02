@@ -11,9 +11,13 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
@@ -33,7 +37,6 @@ public class LeftMenuFragment extends HeadersSupportFragment {
   private ArrayObjectAdapter mRowsAdapter;
   private OnMenuItemClickListener mListener;
 
-
   private List<LeftMenuItem> mLeftMenuItems;
   private List<LeftMenuDTO> mLeftMenuDTOS;
   private int mCurrentPosition;
@@ -42,10 +45,6 @@ public class LeftMenuFragment extends HeadersSupportFragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-//    Animation translate = AnimationUtils.loadAnimation(getActivity(), R.anim.left_to_right);
-//    getView().startAnimation(translate);
-
 
     if (getArguments() != null && getArguments().containsKey(KEY_MENU)) {
       mLeftMenuDTOS = getArguments().getParcelableArrayList(KEY_MENU);
@@ -83,9 +82,6 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     setOnHeaderViewSelectedListener(new OnHeaderViewSelectedListener() {
       @Override
       public void onHeaderSelected(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
-
-        Log.e(TAG, "left menu one");
-
         if (row != null) {
           int position = (int) row.getId();
           if (mCurrentPosition != position && position != -1) {
@@ -108,6 +104,13 @@ public class LeftMenuFragment extends HeadersSupportFragment {
         0, getActivity().getResources().getDimensionPixelSize(R.dimen.lb_action_1_line_height), 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
 //    customSetBackground();
+  }
+
+  public View getSelectedView() {
+    RecyclerView.ViewHolder vh = getVerticalGridView().findViewHolderForAdapterPosition(getSelectedPosition());
+    if (vh != null)
+      return vh.itemView;
+    return null;
   }
 
   private void setupHeaderAdapter() {

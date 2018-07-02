@@ -1,35 +1,78 @@
 package com.example.gem.tvofduanvh;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.view.Menu;
+import android.widget.Toast;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoActivity extends Activity {
+public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
-    @BindView(R.id.vv_play_video)
-    VideoView mVideoVv;
+    private YouTubePlayerView mYouTubePlayerView;
 
-
-//    MediaController mediaController = new MediaController(this);
+    private YouTubePlayer YPlayer;
+    private static final String YoutubeDeveloperKey = "AIzaSyDVMdxp2lnNLr-6nbxahfYoq5Viu-IlI1w";
+    private static final int RECOVERY_DIALOG_REQUEST = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.video_layout);
+        setContentView(R.layout.youtube_view_layout);
+        mYouTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_video_player);
+        mYouTubePlayerView.initialize(YoutubeDeveloperKey, this);
 
-        ButterKnife.bind(this);
+//        MediaController controller = new MediaController(this);
+//        mVideoVv.setVideoPath("https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
+//        mVideoVv.setMediaController(controller);
+//        mVideoVv.start();
 
-        MediaController controller = new MediaController(this);
-        mVideoVv.setVideoPath("https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
-        mVideoVv.setMediaController(controller);
-        mVideoVv.start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate();
+        return true;
+    }
+
+
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        YPlayer = youTubePlayer;
+        if (!b) {
+            YPlayer.cueVideo("C3KzANL6gTY");
+        }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason) {
+
+        if (errorReason.isUserRecoverableError()) {
+            errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
+        } else {
+            String errorMessage = String.format("There was an error initializing the YouTubePlayer",
+                errorReason.toString());
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+            getYouTubePlayerProvider().initialize(YoutubeDeveloperKey, this);
+        }
+    }
+
+    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
+//        return (YouTubePlayerView) findViewById(R.id.youtube_video_player);
+        return mYouTubePlayerView;
     }
 }

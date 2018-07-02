@@ -9,15 +9,23 @@
     android:orientation="horizontal">
 
     <FrameLayout
+        android:id="@+id/fl_menu"
+        android:layout_width="@dimen/width_frame_layout_left_menu"
+        app:layout_constraintRight_toLeftOf="@+id/guideLineLeft"
+        android:layout_marginRight="@dimen/left_menu_margin_right"
+        android:layout_height="match_parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideLineLeft"
+        android:layout_width="1dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_begin="280dp"/>
+
+    <FrameLayout
         android:id="@+id/fl_icon_menu"
         android:layout_width="@dimen/width_frame_layout_icon_menu"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_height="match_parent" />
-
-    <FrameLayout
-        android:id="@+id/fl_menu"
-        android:layout_width="@dimen/width_frame_layout_left_menu"
-        app:layout_constraintLeft_toRightOf="@+id/fl_icon_menu"
         android:layout_height="match_parent" />
 
     <FrameLayout
