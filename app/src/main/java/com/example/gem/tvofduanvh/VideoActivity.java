@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -42,6 +43,9 @@ public class VideoActivity extends Activity {
     Bundle bundle = intent.getBundleExtra(MainActivity.BUNDLE);
     mTvTitleVideo.setText(bundle.getString(MainActivity.TITLE));
     Picasso.with(this).load(bundle.getString(MainActivity.IMAGE)).fit().into(mIvImageVideo);
+
+    mTvTitleVideo.setVisibility(View.GONE);
+    mIvImageVideo.setVisibility(View.GONE);
 
     MediaController mediaController = new MediaController(this);
     mVv.setVideoPath(bundle.getString(MainActivity.VIDEO_URL));

@@ -78,7 +78,7 @@ public class LeftMenuFragment extends HeadersSupportFragment {
       public void onHeaderSelected(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
 
         if (mListener != null) {
-          mListener.onLeftMenuItemClicked(mCurrentPosition);
+          mListener.onLeftMenuItemClicked((int) row.getId());
           Log.e(TAG, "left menu selected");
         }
 

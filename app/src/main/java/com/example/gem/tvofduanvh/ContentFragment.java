@@ -66,7 +66,7 @@ public class ContentFragment extends BaseRowsFragment {
 
   }
 
-  private void showData() {
+  public void showData() {
     mContents = new ArrayList<>();
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
@@ -107,13 +107,39 @@ public class ContentFragment extends BaseRowsFragment {
     }
   }
 
-  private void showNewData() {
+  public void showNewData() {
     if (!mContents.isEmpty()) {
       mContents.clear();
-    } else {
-      mContents = new ArrayList<>();
-      mContents.add(new ContentRightItem("", "DuanVH", "", ""));
+      getRowsAdapter().clear();
     }
+    mContents = new ArrayList<>();
+    mContents.add(new ContentRightItem("Luffy", " Straw Hat",
+        "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
+        "https://zmp3-mp3-mv1.zadn.vn/8fc521121e57f709ae46/71909135291199385?authen=exp=1530686095~acl=/8fc521121e57f709ae46/*~hmac=e41fe3a6757eef8b4833ac87c91b6b71"));
+    mContents.add(new ContentRightItem("Zoro", " Straw Hat",
+        "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
+        "https://zmp3-mp3-mv1.zadn.vn/69cab0758e30676e3e21/5124731231472285839?authen=exp=1530689174~acl=/69cab0758e30676e3e21/*~hmac=f223f8936c33c7ea461d1d278ebddf07"));
+    mContents.add(new ContentRightItem("Usopp", " Straw Hat",
+        "https://vignette.wikia.nocookie.net/onepiece/images/8/8a/Kuro_Kabuto_Infobox.png",
+        "https://zmp3-mp3-mv1.zadn.vn/61520d2f316ad834817b/43783655726625144?authen=exp=1530689212~acl=/61520d2f316ad834817b/*~hmac=441efa4e1a44d1feba263bf7d2a7716b"));
+    mContents.add(new ContentRightItem("Nami", " Straw Hat",
+        "https://res.cloudinary.com/teepublic/image/private/s--4Z1N4EFE--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1511697333/production/designs/2103685_1.jpg",
+        "https://zmp3-mp3-mv1.zadn.vn/c0c8bbf487b16eef37a0/5589423063346503767?authen=exp=1530689278~acl=/c0c8bbf487b16eef37a0/*~hmac=a79a650fa1f18e0c10730a4e6882af77"));
+
+    getRowsAdapter().clear();
+
+    for (int i = 0; i < 10; i++) {
+      ArrayObjectAdapter itemsAdapter = new ArrayObjectAdapter(
+          new ContentRightPresenter(getActivity(), false));
+      Collections.shuffle(mContents);
+
+      itemsAdapter.addAll(0, mContents);
+
+      HeaderItem headerItem = new HeaderItem("Row ".concat(i + ""));
+
+      getRowsAdapter().add(new ListRow(headerItem, itemsAdapter));
+    }
+
   }
 
   public interface OnContentListener {
