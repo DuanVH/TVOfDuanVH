@@ -117,31 +117,26 @@ public class MainActivity extends FragmentActivity {
           // Home
           case 0:
             contentFragment.showData();
-//            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
 
           // Suggest
           case 1:
             contentFragment.showNewData();
-//            picassoBackgroundManager.updateBackgroundWithDelay("https://www.animuk.co.uk/images/watermarked/1/detailed/14/One_Piece_-_FILM_GOLD_Character_Poster_Collection.jpg?t=1471128535");
             break;
 
           // Hot trend
           case 2:
             contentFragment.showData();
-//            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
 
           // Music
           case 3:
             contentFragment.showNewData();
-//            picassoBackgroundManager.updateBackgroundWithDelay("https://www.animuk.co.uk/images/watermarked/1/detailed/14/One_Piece_-_FILM_GOLD_Character_Poster_Collection.jpg?t=1471128535");
             break;
 
           // Entertainment
           case 4:
             contentFragment.showData();
-//            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
 
           default:
@@ -152,7 +147,14 @@ public class MainActivity extends FragmentActivity {
 
     contentFragment.setListener(new ContentFragment.OnContentListener() {
       @Override
-      public void onContentListener(ContentRightItem item) {
+      public void onContentSelectedListener(ContentRightItem item) {
+        if (item != null) {
+          picassoBackgroundManager.updateBackgroundWithDelay(item.getImageUrl());
+        }
+      }
+
+      @Override
+      public void onContentClickedListener(ContentRightItem item) {
         if (item != null) {
           Intent intent = new Intent(MainActivity.this, VideoActivity.class);
           Bundle bundle = new Bundle();
@@ -209,7 +211,6 @@ public class MainActivity extends FragmentActivity {
           toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         } else if (focused.getId() == R.id.itemContent && direction == View.FOCUS_LEFT) {
-//          toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         }
         return null;

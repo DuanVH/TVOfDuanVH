@@ -1,5 +1,6 @@
 package com.example.gem.tvofduanvh;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -12,6 +13,7 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +46,7 @@ public class ContentFragment extends BaseRowsFragment {
       @Override
       public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
         if (mListener != null) {
-          mListener.onContentListener(null);
+          mListener.onContentSelectedListener(((ContentRightItem) item));
           Log.e(TAG, "Content Selected: ");
         }
       }
@@ -54,7 +56,7 @@ public class ContentFragment extends BaseRowsFragment {
       @Override
       public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
         if (mListener != null) {
-          mListener.onContentListener(((ContentRightItem) item));
+          mListener.onContentClickedListener(((ContentRightItem) item));
           Log.e(TAG, "Content Clicked: ");
 
         }
@@ -63,6 +65,8 @@ public class ContentFragment extends BaseRowsFragment {
 
     getVerticalGridView().setPadding(0, 0, 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
+
+    customSetBackground(Color.BLUE);
 
   }
 
@@ -142,8 +146,21 @@ public class ContentFragment extends BaseRowsFragment {
 
   }
 
+
+  private void customSetBackground(int color) {
+    try {
+      Class clazz = BaseRowsFragment.class;
+      Method m = clazz.getDeclaredMethod("setBackgroundColor", Integer.TYPE);
+      m.setAccessible(true);
+      m.invoke(this, color);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public interface OnContentListener {
-    void onContentListener(ContentRightItem item);
+    void onContentSelectedListener(ContentRightItem item);
+    void onContentClickedListener(ContentRightItem item);
   }
 
   @Override

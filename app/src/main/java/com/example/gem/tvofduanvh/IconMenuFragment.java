@@ -124,7 +124,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
       Class clazz = HeadersSupportFragment.class;
       Method m = clazz.getDeclaredMethod("setBackgroundColor", Integer.TYPE);
       m.setAccessible(true);
-      m.invoke(this, Color.TRANSPARENT);
+      m.invoke(this, Color.DKGRAY);
     } catch (Exception e) {
       e.printStackTrace();
     }

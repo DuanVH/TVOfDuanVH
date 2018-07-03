@@ -48,8 +48,8 @@ public class VideoActivity extends Activity {
     mIvImageVideo.setVisibility(View.GONE);
 
     MediaController mediaController = new MediaController(this);
-    mVv.setVideoPath(bundle.getString(MainActivity.VIDEO_URL));
     mVv.setMediaController(mediaController);
+    mVv.setVideoPath(bundle.getString(MainActivity.VIDEO_URL));
     mVv.start();
   }
 }
