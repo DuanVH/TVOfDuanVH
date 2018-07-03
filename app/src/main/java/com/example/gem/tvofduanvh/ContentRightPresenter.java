@@ -1,8 +1,7 @@
 package com.example.gem.tvofduanvh;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -18,10 +19,17 @@ import butterknife.ButterKnife;
  * Created by gem on 6/28/18.
  */
 
-public class VideoPresenter extends AbstractPresenter {
+public class ContentRightPresenter extends AbstractPresenter {
 
-  public VideoPresenter(Context context, boolean isAlignFirstItem) {
+  private static final String TAG = ContentRightPresenter.class.getSimpleName();
+  OnContentListener listener;
+
+  public ContentRightPresenter(Context context, boolean isAlignFirstItem) {
     super(context, isAlignFirstItem);
+  }
+
+  public void setListener(OnContentListener listener) {
+    this.listener = listener;
   }
 
   @Override
@@ -31,7 +39,7 @@ public class VideoPresenter extends AbstractPresenter {
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+  public void onBindViewHolder(final ViewHolder viewHolder, final Object item) {
 
     final ProgramItemHolder holder = (ProgramItemHolder) viewHolder;
 
@@ -51,8 +59,13 @@ public class VideoPresenter extends AbstractPresenter {
 //        holder.videoView.start();
 //      }
 //    });
+    holder.view.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Log.e(TAG, "onClick: ");
+      }
+    });
   }
-
 
 
   @Override
@@ -67,9 +80,18 @@ public class VideoPresenter extends AbstractPresenter {
     @BindView(R.id.tv_title_content)
     TextView tvTitle;
 
+    public String getTitle() {
+      return tvTitle.getText().toString();
+    }
+
     public ProgramItemHolder(View view) {
       super(view);
       ButterKnife.bind(this, view);
     }
   }
+
+  public interface OnContentListener {
+    void onContentListener(String title);
+  }
+
 }

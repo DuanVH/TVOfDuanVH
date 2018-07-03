@@ -1,5 +1,6 @@
 package com.example.gem.tvofduanvh;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -32,9 +33,15 @@ import butterknife.ButterKnife;
 public class MainActivity extends FragmentActivity {
 
   private static final String TAG = MainActivity.class.getSimpleName();
+
   private static final String LEFT_MENU = "left_menu";
   private static final String ICON_MENU = "icon_menu";
   private static final String CONTENT = "content";
+
+  public static final String BUNDLE = "bundle";
+  public static final String TITLE = "title";
+  public static final String IMAGE = "image";
+  public static final String VIDEO_URL = "video_url";
 
   private FragmentManager fragmentManager = getSupportFragmentManager();
   private BackgroundManager mBackgroundManager = null;
@@ -65,8 +72,13 @@ public class MainActivity extends FragmentActivity {
     setupMenu();
   }
 
+  /*
+  Muốn selected vào 1 item thì đầu tiên phải focus vào list chứa nó trước
+  Focus >> Seleced >> Clicked
+   */
   public void requestFocusIcon() {
     iconMenuFragment.getSelectedView().requestFocus();
+    iconMenuFragment.setSelectedPosition(0);
   }
 
   private void setupMenu() {
@@ -102,22 +114,27 @@ public class MainActivity extends FragmentActivity {
         Log.e(TAG, "onLeftMenuItemClicked: " + id);
         switch ((int) id) {
 
+          // Home
           case 0:
 //            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
 
+          // Suggest
           case 1:
 //            picassoBackgroundManager.updateBackgroundWithDelay("https://www.animuk.co.uk/images/watermarked/1/detailed/14/One_Piece_-_FILM_GOLD_Character_Poster_Collection.jpg?t=1471128535");
             break;
 
+          // Hot trend
           case 2:
 //            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
 
+          // Music
           case 3:
 //            picassoBackgroundManager.updateBackgroundWithDelay("https://www.animuk.co.uk/images/watermarked/1/detailed/14/One_Piece_-_FILM_GOLD_Character_Poster_Collection.jpg?t=1471128535");
             break;
 
+          // Entertainment
           case 4:
 //            picassoBackgroundManager.updateBackgroundWithDelay("http://i0.kym-cdn.com/photos/images/original/000/693/750/f61.jpg");
             break;
@@ -129,10 +146,18 @@ public class MainActivity extends FragmentActivity {
     });
 
     contentFragment.setListener(new ContentFragment.OnContentListener() {
-
       @Override
-      public void onContentListener(long id) {
-        Log.e(TAG, "onContentListener: " + id);
+      public void onContentListener(ContentRightItem item) {
+        if (item != null) {
+          Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+          Bundle bundle = new Bundle();
+          bundle.putString(TITLE, item.getTitle());
+          bundle.putString(IMAGE, item.getImageUrl());
+          bundle.putString(VIDEO_URL, item.getVideoUrl());
+          intent.putExtra(BUNDLE, bundle);
+          startActivity(intent);
+
+        }
       }
     });
 
@@ -180,7 +205,7 @@ public class MainActivity extends FragmentActivity {
           toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         } else if (focused.getId() == R.id.itemContent && direction == View.FOCUS_LEFT) {
-          toggleMiddleMenu(true);
+//          toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         }
         return null;
@@ -194,6 +219,10 @@ public class MainActivity extends FragmentActivity {
     final int currentMargin = ((ViewGroup.MarginLayoutParams) mLeftMenuFl.getLayoutParams()).rightMargin;
     final int slideDestination = show ? 0 : getResources().getDimensionPixelSize(R.dimen.left_menu_margin_right);
     final int slideDelta = slideDestination - currentMargin;
+
+    Log.e(TAG, "currentMargin: " + currentMargin);
+    Log.e(TAG, "slideDestination: " + slideDestination);
+    Log.e(TAG, "slideDelta: " + slideDelta);
 
     Animation toggleAnimation = new Animation() {
       @Override

@@ -44,7 +44,7 @@ public class ContentFragment extends BaseRowsFragment {
       @Override
       public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
         if (mListener != null) {
-          mListener.onContentListener((int) row.getId());
+          mListener.onContentListener(null);
           Log.e(TAG, "Content Selected: ");
         }
       }
@@ -54,8 +54,9 @@ public class ContentFragment extends BaseRowsFragment {
       @Override
       public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
         if (mListener != null) {
-          mListener.onContentListener((int) row.getId());
+          mListener.onContentListener(((ContentRightItem) item));
           Log.e(TAG, "Content Clicked: ");
+
         }
       }
     });
@@ -69,35 +70,33 @@ public class ContentFragment extends BaseRowsFragment {
     mContents = new ArrayList<>();
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
-        "https://www.youtube.com/watch?v=BGhUwXnXre0"));
+        "https://zmp3-mp3-mv1.zadn.vn/8fc521121e57f709ae46/71909135291199385?authen=exp=1530686095~acl=/8fc521121e57f709ae46/*~hmac=e41fe3a6757eef8b4833ac87c91b6b71"));
     mContents.add(new ContentRightItem("Zoro", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
-        "https://www.youtube.com/watch?v=C3KzANL6gTY"));
+        "https://zmp3-mp3-mv1.zadn.vn/69cab0758e30676e3e21/5124731231472285839?authen=exp=1530689174~acl=/69cab0758e30676e3e21/*~hmac=f223f8936c33c7ea461d1d278ebddf07"));
     mContents.add(new ContentRightItem("Usopp", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/8/8a/Kuro_Kabuto_Infobox.png",
-        "https://www.youtube.com/watch?v=UYBRXOxVDIA"));
+        "https://zmp3-mp3-mv1.zadn.vn/61520d2f316ad834817b/43783655726625144?authen=exp=1530689212~acl=/61520d2f316ad834817b/*~hmac=441efa4e1a44d1feba263bf7d2a7716b"));
     mContents.add(new ContentRightItem("Nami", " Straw Hat",
         "https://res.cloudinary.com/teepublic/image/private/s--4Z1N4EFE--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1511697333/production/designs/2103685_1.jpg",
-        "https://www.youtube.com/watch?v=t6fPzVNIEB0"));
+        "https://zmp3-mp3-mv1.zadn.vn/c0c8bbf487b16eef37a0/5589423063346503767?authen=exp=1530689278~acl=/c0c8bbf487b16eef37a0/*~hmac=a79a650fa1f18e0c10730a4e6882af77"));
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
-        "https://www.youtube.com/watch?v=OGS1sGhGsOs"));
+        "https://zmp3-mp3-mv1.zadn.vn/e6ef2c8710c2f99ca0d3/813441404494098535?authen=exp=1530689349~acl=/e6ef2c8710c2f99ca0d3/*~hmac=d2f25d13fad3ba7f96a25a6463bff034"));
     mContents.add(new ContentRightItem("Zoro", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
-        "https://www.youtube.com/watch?v=7C2z4GqqS5E"));
+        "https://zmp3-mp3-mv1.zadn.vn/b4f66c445201bb5fe210/2412224448554404240?authen=exp=1530689413~acl=/b4f66c445201bb5fe210/*~hmac=4e14993cb6d7cfd6a30ecff977a9544c"));
     mContents.add(new ContentRightItem("Usopp", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/8/8a/Kuro_Kabuto_Infobox.png",
-        "https://www.youtube.com/watch?v=hbKKL9E5uEs"));
+        "https://zmp3-mp3-mv1.zadn.vn/bfd0b2658e20677e3e31/385753945392507054?authen=exp=1530689506~acl=/bfd0b2658e20677e3e31/*~hmac=e2319620cc1ea1fa9d8b4aa592e7b49c"));
     mContents.add(new ContentRightItem("Nami", " Straw Hat",
         "https://res.cloudinary.com/teepublic/image/private/s--4Z1N4EFE--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1511697333/production/designs/2103685_1.jpg",
-        "https://www.youtube.com/watch?v=x9qQujBVXAo"));
-
-
+        "https://zmp3-mp3-mv1.zadn.vn/ed52d61be85e0100584f/7151052435356843107?authen=exp=1530682901~acl=/ed52d61be85e0100584f/*~hmac=0e15838f821b2f29abc1f1e83dc14de7"));
     getRowsAdapter().clear();
 
     for (int i = 0; i < 10; i++) {
       ArrayObjectAdapter itemsAdapter = new ArrayObjectAdapter(
-          new VideoPresenter(getActivity(), false));
+          new ContentRightPresenter(getActivity(), false));
       Collections.shuffle(mContents);
 
       itemsAdapter.addAll(0, mContents);
@@ -108,8 +107,17 @@ public class ContentFragment extends BaseRowsFragment {
     }
   }
 
+  private void showNewData() {
+    if (!mContents.isEmpty()) {
+      mContents.clear();
+    } else {
+      mContents = new ArrayList<>();
+      mContents.add(new ContentRightItem("", "DuanVH", "", ""));
+    }
+  }
+
   public interface OnContentListener {
-    void onContentListener(long id);
+    void onContentListener(ContentRightItem item);
   }
 
   @Override

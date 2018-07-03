@@ -2,4 +2,9 @@
     <string name="app_name">TVOfDuanVH</string>
     <string name="content_left_menu">Trang chủ</string>
     <string name="tv_content">Nơi này có anh - Sơn Tùng MTP</string>
+    <string name="left_menu_home">Trang chủ</string>
+    <string name="left_menu_suggest">Đề xuất</string>
+    <string name="left_menu_hot_trend">Thịnh hành</string>
+    <string name="left_menu_music">Âm nhạc</string>
+    <string name="left_menu_entertainment">Giải trí</string>
 </resources>

@@ -123,34 +123,34 @@ public class LeftMenuFragment extends HeadersSupportFragment {
 //      mRowsAdapter.add(new ListRow(menuItem, new ArrayObjectAdapter()));
 //    }
 
-    LeftMenuItem home = new LeftMenuItem(0, "Trang chủ");
+    LeftMenuItem home = new LeftMenuItem(0, getString(R.string.left_menu_home));
     mLeftMenuItems.add(home);
     mRowsAdapter.add(new ListRow(home, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem suggest = new LeftMenuItem(1, "Đề xuất");
+    LeftMenuItem suggest = new LeftMenuItem(1, getString(R.string.left_menu_suggest));
     mLeftMenuItems.add(suggest);
     mRowsAdapter.add(new ListRow(suggest, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem hotTrend = new LeftMenuItem(2, "Thịnh hành");
+    LeftMenuItem hotTrend = new LeftMenuItem(2, getString(R.string.left_menu_hot_trend));
     mLeftMenuItems.add(hotTrend);
     mRowsAdapter.add(new ListRow(hotTrend, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem music = new LeftMenuItem(3, "Âm nhạc");
+    LeftMenuItem music = new LeftMenuItem(3, getString(R.string.left_menu_music));
     mLeftMenuItems.add(music);
     mRowsAdapter.add(new ListRow(music, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
-    LeftMenuItem entertainment = new LeftMenuItem(4, "Giải trí");
+    LeftMenuItem entertainment = new LeftMenuItem(4, getString(R.string.left_menu_entertainment));
     mLeftMenuItems.add(entertainment);
     mRowsAdapter.add(new ListRow(entertainment, new ArrayObjectAdapter(new LeftMenuPresenter(getActivity()))));
 
     setAdapter(mRowsAdapter);
 
     getVerticalGridView().post(new Runnable() {
-      @Override
-      public void run() {
-        ((MainActivity)getActivity()).requestFocusIcon();
-      }
-    });
+    @Override
+    public void run() {
+      ((MainActivity)getActivity()).requestFocusIcon();  // Sau khi add LeftMenuFragment thi Focus lai IconMenuFragment
+    }
+  });
   }
 
   private void customSetBackground(int color) {
