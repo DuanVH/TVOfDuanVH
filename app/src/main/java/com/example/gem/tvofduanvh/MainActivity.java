@@ -103,7 +103,36 @@ public class MainActivity extends FragmentActivity {
 
       @Override
       public void onIconMenuItemClicked(long id) {
-        Log.e(TAG, "onLeftMenuItemClicked: " + id);
+        switch ((int) id) {
+
+          // search
+          case 0:
+
+            break;
+
+          // home
+          case 1:
+
+            break;
+
+          case 2:
+            break;
+
+          case 3:
+            break;
+
+          // account
+          case 4:
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            break;
+
+          // settings
+          case 5:
+            break;
+
+          default:
+            break;
+        }
       }
     });
 
