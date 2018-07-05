@@ -35,7 +35,9 @@ public class MainActivity extends FragmentActivity {
   private static final String TAG = MainActivity.class.getSimpleName();
 
   private static final String LEFT_MENU = "left_menu";
+  private static final String TOP_ICON_MENU = "top_icon_menu";
   private static final String ICON_MENU = "icon_menu";
+  private static final String BOT_ICON_MENU = "bot_icon_menu";
   private static final String CONTENT = "content";
 
   public static final String BUNDLE = "bundle";
@@ -47,13 +49,21 @@ public class MainActivity extends FragmentActivity {
   private BackgroundManager mBackgroundManager = null;
   private PicassoBackgroundManager picassoBackgroundManager = null;
 
-  private IconMenuFragment iconMenuFragment;
+  private TopIconMenuFragment topIconMenuFragment;
+  private IconMenuFragment betIconMenuFragment;
+  private IconMenuFragment botIconMenuFragment;
 
   @BindView(R.id.fl_menu)
   FrameLayout mLeftMenuFl;
 
+  @BindView(R.id.fl_top_icon)
+  FrameLayout mTopIconFl;
+
   @BindView(R.id.fl_icon_menu)
   FrameLayout mIconMenuFl;
+
+  @BindView(R.id.fl_bot_icon)
+  FrameLayout mBotIconFl;
 
   @BindView(R.id.fl_content)
   FrameLayout mContentFl;
@@ -68,6 +78,7 @@ public class MainActivity extends FragmentActivity {
     ButterKnife.bind(this);
 
     picassoBackgroundManager = new PicassoBackgroundManager(this);
+    mBackgroundManager = BackgroundManager.getInstance(this);
 
     setupMenu();
   }
@@ -77,13 +88,14 @@ public class MainActivity extends FragmentActivity {
   Focus >> Seleced >> Clicked
    */
   public void requestFocusIcon() {
-    iconMenuFragment.getSelectedView().requestFocus();
-    iconMenuFragment.setSelectedPosition(0);
+    betIconMenuFragment.getSelectedView().requestFocus();
+    betIconMenuFragment.setSelectedPosition(0);
   }
 
   private void setupMenu() {
     final LeftMenuFragment leftMenuFragment = new LeftMenuFragment();
-    iconMenuFragment = new IconMenuFragment();
+    topIconMenuFragment = new TopIconMenuFragment();
+    betIconMenuFragment = new IconMenuFragment();
     final ContentFragment contentFragment = new ContentFragment();
 
 
@@ -92,14 +104,18 @@ public class MainActivity extends FragmentActivity {
         .commit();
 
     getSupportFragmentManager().beginTransaction()
-        .add(R.id.fl_icon_menu, iconMenuFragment, ICON_MENU)
+        .add(R.id.fl_top_icon, topIconMenuFragment, TOP_ICON_MENU)
+        .commit();
+
+    getSupportFragmentManager().beginTransaction()
+        .add(R.id.fl_icon_menu, betIconMenuFragment, ICON_MENU)
         .commit();
 
     getSupportFragmentManager().beginTransaction()
         .add(R.id.fl_content, contentFragment, CONTENT)
         .commit();
 
-    iconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
+    betIconMenuFragment.setListener(new IconMenuFragment.OnMenuItemClickListener() {
 
       @Override
       public void onIconMenuItemClicked(long id) {
@@ -178,7 +194,7 @@ public class MainActivity extends FragmentActivity {
       @Override
       public void onContentSelectedListener(ContentRightItem item) {
         if (item != null) {
-          picassoBackgroundManager.updateBackgroundWithDelay(item.getImageUrl());
+//          picassoBackgroundManager.updateBackgroundWithDelay(item.getImageUrl());
         }
       }
 
@@ -215,7 +231,7 @@ public class MainActivity extends FragmentActivity {
 //            mLeftMenuFl.setVisibility(View.GONE);
 //          }
 //        } else
-        if (child.getId() == R.id.fl_icon_menu) {
+        if (child.getId() == R.id.fl_icon_menu || child.getId() == R.id.fl_top_icon || child.getId() == R.id.fl_bot_icon) {
           toggleMiddleMenu(false);
 //          if (leftMenuFragment.isAdded()) {
 //            Toast.makeText(getApplicationContext(), "Fragment added ", Toast.LENGTH_SHORT).show();
@@ -236,11 +252,19 @@ public class MainActivity extends FragmentActivity {
     parentContainer.setOnFocusSearchListener(new OnFocusSearchListener() {
       @Override
       public View onFocusSearch(View focused, int direction) {
+
         if (focused.getId() == R.id.itemIconMenu && direction == View.FOCUS_RIGHT) {
           toggleMiddleMenu(true);
           return leftMenuFragment.getSelectedView();
         } else if (focused.getId() == R.id.itemContent && direction == View.FOCUS_LEFT) {
           return leftMenuFragment.getSelectedView();
+        }
+
+        if (focused.getId() == R.id.fl_top_icon && direction == View.FOCUS_RIGHT) {
+          toggleMiddleMenu(true);
+          return leftMenuFragment.getSelectedView();
+        } else if (focused.getId() == R.id.fl_menu && direction == View.FOCUS_LEFT) {
+          return topIconMenuFragment.getSelectedView();
         }
         return null;
       }
@@ -269,6 +293,5 @@ public class MainActivity extends FragmentActivity {
     toggleAnimation.setDuration(300);
     parentContainer.startAnimation(toggleAnimation);
   }
-
 
 }

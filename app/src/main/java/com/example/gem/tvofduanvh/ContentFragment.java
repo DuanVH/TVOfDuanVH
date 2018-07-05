@@ -74,7 +74,7 @@ public class ContentFragment extends BaseRowsFragment {
     mContents = new ArrayList<>();
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
-        "https://zmp3-mp3-mv1.zadn.vn/8fc521121e57f709ae46/71909135291199385?authen=exp=1530686095~acl=/8fc521121e57f709ae46/*~hmac=e41fe3a6757eef8b4833ac87c91b6b71"));
+        "https://zmp3-mp3-mv1-te-vnno-vn-5.zadn.vn/9337d5daea9f03c15a8e/4632193790717001957?authen=exp=1530864416~acl=/9337d5daea9f03c15a8e/*~hmac=46aa79c46641895e7589d8ef782ae25e"));
     mContents.add(new ContentRightItem("Zoro", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
         "https://zmp3-mp3-mv1.zadn.vn/69cab0758e30676e3e21/5124731231472285839?authen=exp=1530689174~acl=/69cab0758e30676e3e21/*~hmac=f223f8936c33c7ea461d1d278ebddf07"));
@@ -86,7 +86,7 @@ public class ContentFragment extends BaseRowsFragment {
         "https://zmp3-mp3-mv1.zadn.vn/c0c8bbf487b16eef37a0/5589423063346503767?authen=exp=1530689278~acl=/c0c8bbf487b16eef37a0/*~hmac=a79a650fa1f18e0c10730a4e6882af77"));
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
-        "https://zmp3-mp3-mv1.zadn.vn/e6ef2c8710c2f99ca0d3/813441404494098535?authen=exp=1530689349~acl=/e6ef2c8710c2f99ca0d3/*~hmac=d2f25d13fad3ba7f96a25a6463bff034"));
+        "https://zmp3-mp3-mv1-te-vnno-vn-5.zadn.vn/9337d5daea9f03c15a8e/4632193790717001957?authen=exp=1530864416~acl=/9337d5daea9f03c15a8e/*~hmac=46aa79c46641895e7589d8ef782ae25e"));
     mContents.add(new ContentRightItem("Zoro", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
         "https://zmp3-mp3-mv1.zadn.vn/b4f66c445201bb5fe210/2412224448554404240?authen=exp=1530689413~acl=/b4f66c445201bb5fe210/*~hmac=4e14993cb6d7cfd6a30ecff977a9544c"));
@@ -119,7 +119,7 @@ public class ContentFragment extends BaseRowsFragment {
     mContents = new ArrayList<>();
     mContents.add(new ContentRightItem("Luffy", " Straw Hat",
         "https://otakukart.com/wp-content/uploads/2017/08/one_piece_movie_z_luffy_by_exalmas-d61qk9b.png",
-        "https://zmp3-mp3-mv1.zadn.vn/8fc521121e57f709ae46/71909135291199385?authen=exp=1530686095~acl=/8fc521121e57f709ae46/*~hmac=e41fe3a6757eef8b4833ac87c91b6b71"));
+        "https://zmp3-mp3-mv1-te-vnno-vn-5.zadn.vn/9337d5daea9f03c15a8e/4632193790717001957?authen=exp=1530864416~acl=/9337d5daea9f03c15a8e/*~hmac=46aa79c46641895e7589d8ef782ae25e"));
     mContents.add(new ContentRightItem("Zoro", " Straw Hat",
         "https://vignette.wikia.nocookie.net/onepiece/images/6/64/Roronoa_Zoro_Anime_Pre_Timeskip_Infobox.png",
         "https://zmp3-mp3-mv1.zadn.vn/69cab0758e30676e3e21/5124731231472285839?authen=exp=1530689174~acl=/69cab0758e30676e3e21/*~hmac=f223f8936c33c7ea461d1d278ebddf07"));

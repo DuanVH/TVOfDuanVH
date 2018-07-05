@@ -39,7 +39,7 @@ public class PicassoBackgroundManager {
 
   Timer mBackgroundTimer; // null when no UpdateBackgroundTask is running.
 
-  public PicassoBackgroundManager (Activity activity) {
+  public PicassoBackgroundManager(Activity activity) {
     mActivity = activity;
     mDefaultBackground = activity.getDrawable(DEFAULT_BACKGROUND_RES_ID);
     mBackgroundManager = BackgroundManager.getInstance(activity);
@@ -91,6 +91,7 @@ public class PicassoBackgroundManager {
   /**
    * updateBackground with delay
    * delay time is measured in other Timer task thread.
+   *
    * @param uri
    */
   public void updateBackgroundWithDelay(URI uri) {
@@ -100,6 +101,7 @@ public class PicassoBackgroundManager {
 
   private void updateBackground(URI uri) {
     try {
+      Log.e(TAG, "updateBackground: " );
       Picasso.with(mActivity)
           .load(uri.toString())
           .resize(mMetrics.widthPixels, mMetrics.heightPixels)
@@ -117,6 +119,8 @@ public class PicassoBackgroundManager {
    * Picasso target for updating default_background images
    */
   public class PicassoBackgroundManagerTarget implements Target {
+
+    Activity activity;
     BackgroundManager mBackgroundManager;
 
     public PicassoBackgroundManagerTarget(BackgroundManager backgroundManager) {
