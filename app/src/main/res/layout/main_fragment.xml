@@ -35,4 +35,12 @@
         app:layout_constraintLeft_toRightOf="@+id/fl_menu"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_icon_myclip"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/icon_myclip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fl_icon_menu" />
+
 </com.example.gem.tvofduanvh.CustomConstraintLayout>

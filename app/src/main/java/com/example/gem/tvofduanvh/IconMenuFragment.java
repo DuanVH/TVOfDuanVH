@@ -69,7 +69,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
       @Override
       public void onHeaderSelected(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
         if (mListener != null) {
-          mListener.onIconMenuItemClicked((int) row.getId());
+//          mListener.onIconMenuItemClicked((int) row.getId());
           Log.e(TAG, "icon menu selected");
         }
       }

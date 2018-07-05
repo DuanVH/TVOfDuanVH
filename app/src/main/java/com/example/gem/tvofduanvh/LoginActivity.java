@@ -2,10 +2,13 @@ package com.example.gem.tvofduanvh;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +35,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
   @BindView(R.id.sign_in_button)
   SignInButton mSignIn;
 
+  @BindView(R.id.tv_email)
+  TextView mEmailTv;
+
+  @BindView(R.id.iv_account)
+  ImageView mAccountIv;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -40,7 +50,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     mSignIn.setSize(SignInButton.SIZE_STANDARD);
     mSignIn.setOnClickListener(this);
 
-    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN).requestEmail().build();
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
   }
 
@@ -52,7 +62,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
   }
 
   private void updateUI(GoogleSignInAccount account) {
+    if (account != null) {
 
+      Picasso.with(this)
+          .load(account.getPhotoUrl())
+          .fit()
+          .into(mAccountIv);
+
+      mEmailTv.setText(account.getEmail());
+
+    } else
+      Log.e(TAG, "updateUI: account null"  );
   }
 
   @Override
@@ -70,7 +90,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
   private void signIn() {
     Intent signInIntent = mGoogleSignInClient.getSignInIntent();
     startActivityForResult(signInIntent, RC_SIGN_IN);
-
   }
 
   @Override
