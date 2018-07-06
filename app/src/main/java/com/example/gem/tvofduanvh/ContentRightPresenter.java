@@ -22,14 +22,9 @@ import butterknife.ButterKnife;
 public class ContentRightPresenter extends AbstractPresenter {
 
   private static final String TAG = ContentRightPresenter.class.getSimpleName();
-  OnContentListener listener;
 
   public ContentRightPresenter(Context context, boolean isAlignFirstItem) {
     super(context, isAlignFirstItem);
-  }
-
-  public void setListener(OnContentListener listener) {
-    this.listener = listener;
   }
 
   @Override
@@ -59,6 +54,9 @@ public class ContentRightPresenter extends AbstractPresenter {
 //        holder.videoView.start();
 //      }
 //    });
+
+    holder.view.setTag(contentRightItem.getDescription());
+
     holder.view.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -88,10 +86,6 @@ public class ContentRightPresenter extends AbstractPresenter {
       super(view);
       ButterKnife.bind(this, view);
     }
-  }
-
-  public interface OnContentListener {
-    void onContentListener(String title);
   }
 
 }

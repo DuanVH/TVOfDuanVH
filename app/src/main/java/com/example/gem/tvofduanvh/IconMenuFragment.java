@@ -1,7 +1,8 @@
 package com.example.gem.tvofduanvh;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.HeadersSupportFragment;
@@ -59,7 +60,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    setListBetweenIconMenu();
+    setListIconMenu();
 
     setOnHeaderClickedListener(new OnHeaderClickedListener() {
       @Override
@@ -67,6 +68,8 @@ public class IconMenuFragment extends HeadersSupportFragment {
         if (mListener != null) {
           mListener.onIconMenuItemClicked((int) row.getId());
           Log.e(TAG, "icon menu clicked");
+
+//          updateLastIcon();
         }
       }
     });
@@ -81,7 +84,7 @@ public class IconMenuFragment extends HeadersSupportFragment {
       }
     });
 
-    getVerticalGridView().setPadding(0, 100, 0, 0);
+    getVerticalGridView().setPadding(0, 200, 0, 0);
     getVerticalGridView().setVerticalSpacing(0);
     customSetBackground();
   }
@@ -94,23 +97,62 @@ public class IconMenuFragment extends HeadersSupportFragment {
   }
 
 
-  private void setListBetweenIconMenu() {
+  private void setListIconMenu() {
     mAdapterRows = new ArrayObjectAdapter(new ListRowPresenter());
     iconMenuItems = new ArrayList<>();
 
-    IconMenuItem home = new IconMenuItem(3, "home", R.drawable.icon_home);
+    IconMenuItem search = new IconMenuItem(1, "search", R.drawable.icon_search);
+    iconMenuItems.add(search);
+    mAdapterRows.add(new ListRow(search, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
+
+    // hide
+    IconMenuItem none = new IconMenuItem(2, "none", -1, null);
+    iconMenuItems.add(none);
+    mAdapterRows.add(new ListRow(none, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
+
+    IconMenuItem home = new IconMenuItem(3, "home", R.drawable.icon_home, null);
     iconMenuItems.add(home);
     mAdapterRows.add(new ListRow(home, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
 
-    IconMenuItem supervisorAccount = new IconMenuItem(4, "supervisor account", R.drawable.icon_supervisor_account);
+    IconMenuItem supervisorAccount = new IconMenuItem(4, "supervisor account", R.drawable.icon_supervisor_account, null);
     iconMenuItems.add(supervisorAccount);
     mAdapterRows.add(new ListRow(supervisorAccount, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
 
-    IconMenuItem folder = new IconMenuItem(5, "folder", R.drawable.icon_folder);
+    IconMenuItem folder = new IconMenuItem(5, "folder", R.drawable.icon_folder, null);
     iconMenuItems.add(folder);
     mAdapterRows.add(new ListRow(folder, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
 
+    // hide
+    IconMenuItem none2 = new IconMenuItem(6, "none2", -1, null);
+    iconMenuItems.add(none2);
+    mAdapterRows.add(new ListRow(none2, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
+
+    IconMenuItem account = new IconMenuItem(7, "account", R.drawable.icon_account, null);
+    iconMenuItems.add(account);
+    mAdapterRows.add(new ListRow(account, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
+
+    IconMenuItem setting = new IconMenuItem(8, "setting", R.drawable.icon_setting, null);
+    iconMenuItems.add(setting);
+    mAdapterRows.add(new ListRow(setting, new ArrayObjectAdapter(new IconMenuPresenter(getActivity()))));
+
     setAdapter(mAdapterRows);
+  }
+
+  // change image at last index
+  public void updateLastIcon() {
+    int lastIndex = mAdapterRows.size() - 1;
+    Row lastRow = (ListRow) mAdapterRows.get(lastIndex);
+    IconMenuItem icon = (IconMenuItem) lastRow.getHeaderItem();
+    icon.setImage(R.drawable.icon_myclip);
+    mAdapterRows.notifyItemRangeChanged(lastIndex, 1);
+  }
+  
+  public void updateAvatar(Uri uriImage) {
+    int indexAvatar = mAdapterRows.size() - 2;
+    Row indexRow = (ListRow) mAdapterRows.get(indexAvatar);
+    IconMenuItem iconAvatar = (IconMenuItem) indexRow.getHeaderItem();
+    iconAvatar.setUri(uriImage);
+    mAdapterRows.notifyItemRangeChanged(indexAvatar, 1);
   }
 
   private void customSetBackground() {

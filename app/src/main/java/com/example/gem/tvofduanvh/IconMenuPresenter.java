@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabWidget;
 
+import com.squareup.picasso.Picasso;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,12 +36,27 @@ public class IconMenuPresenter extends RowHeaderPresenter {
     final IconMenuItem iconMenuItem = (IconMenuItem) ((ListRow) item).getHeaderItem();
 
     final IconMenuViewHolder iconMenuViewHolder = (IconMenuViewHolder) viewHolder;
-    iconMenuViewHolder.mIv.setImageDrawable(mContext.getResources().getDrawable(iconMenuItem.getImage()));
 
-    iconMenuViewHolder.view.setTag(iconMenuItem);
+    if (iconMenuItem.getId() == 2 || iconMenuItem.getId() == 6) {
+      iconMenuViewHolder.view.setVisibility(View.INVISIBLE);
+      iconMenuViewHolder.view.setFocusable(false);
+      iconMenuViewHolder.view.setFocusableInTouchMode(false);
+    } else {
+      iconMenuViewHolder.view.setVisibility(View.VISIBLE);
+      iconMenuViewHolder.view.setFocusable(true);
+      iconMenuViewHolder.view.setFocusableInTouchMode(true);
+      if (iconMenuItem.getUri() == null)
+        iconMenuViewHolder.mIv.setImageDrawable(mContext.getResources().getDrawable(iconMenuItem.getImage()));
+      else
+        Picasso.with(mContext).load(iconMenuItem.getUri()).fit().into(iconMenuViewHolder.mIv);
+    }
+
+    iconMenuViewHolder.view.setTag(iconMenuItem.getImage());
+
     iconMenuViewHolder.view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View view, boolean b) {
+//        IconMenuItem data = (IconMenuFragment) view.getTag();
 
       }
     });

@@ -99,8 +99,7 @@ public class ContentFragment extends BaseRowsFragment {
     getRowsAdapter().clear();
 
     for (int i = 0; i < 10; i++) {
-      ArrayObjectAdapter itemsAdapter = new ArrayObjectAdapter(
-          new ContentRightPresenter(getActivity(), false));
+      ArrayObjectAdapter itemsAdapter = new ArrayObjectAdapter(new ContentRightPresenter(getActivity(), false));
       Collections.shuffle(mContents);
 
       itemsAdapter.addAll(0, mContents);

@@ -146,11 +146,12 @@ public class LeftMenuFragment extends HeadersSupportFragment {
     setAdapter(mRowsAdapter);
 
     getVerticalGridView().post(new Runnable() {
-    @Override
-    public void run() {
-      ((MainActivity)getActivity()).requestFocusIcon();  // Sau khi add LeftMenuFragment thi Focus lai IconMenuFragment
-    }
-  });
+      @Override
+      public void run() {
+        Log.e(TAG, "run: " );
+        ((MainActivity) getActivity()).requestFocusIcon();  // Sau khi add LeftMenuFragment thi Focus lai IconMenuFragment
+      }
+    });
   }
 
   private void customSetBackground(int color) {
